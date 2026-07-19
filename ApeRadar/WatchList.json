@@ -1,0 +1,44 @@
+{
+  "RU": {},
+  "EU": {},
+  "NA": {},
+  "ASIA": {
+    "2027868577": {
+      "name": "fenglue",
+      "status": "Positive"
+    },
+    "3008023442": {
+      "name": "SEED_Kira_Yamato",
+      "status": "Positive"
+    },
+    "2050814859": {
+      "name": "prism_2024",
+      "status": "Positive"
+    },
+    "2027626448": {
+      "name": "CN_HeathercTiA",
+      "status": "Positive"
+    },
+    "2017755237": {
+      "name": "Moririnnx",
+      "status": "Positive"
+    },
+    "2048418085": {
+      "name": "BlueMoonSae",
+      "status": "Negtive"
+    },
+    "3001700463": {
+      "name": "General_iroh_Fire",
+      "status": "Negtive"
+    },
+    "2033416083": {
+      "name": "ZMH_4869",
+      "status": "Negtive"
+    },
+    "3002953777": {
+      "name": "yuyuyuyuyuyuyunwn",
+      "status": "Positive"
+    }
+  },
+  "CN": {}
+}
