@@ -208,6 +208,34 @@ sniffer:
     - "+.local"
 
 ########################################
+#                 TUN设置
+########################################
+
+tun:
+
+  # 开启TUN模式
+  enable: true
+
+  # 混合网络栈
+  stack: mixed
+
+  # 自动管理路由
+  auto-route: true
+
+  # Linux透明代理优化
+  auto-redirect: true
+
+  # 自动检测出口
+  auto-detect-interface: true
+
+  # 严格路由
+  strict-route: true
+
+  # DNS劫持
+  dns-hijack:
+    - any:53
+
+########################################
 #               策略组
 ########################################
 
