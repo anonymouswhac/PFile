@@ -1,0 +1,18 @@
+# ========================================
+# Steam 游戏下载 CDN
+# ========================================
+DOMAIN-SUFFIX,steamcontent.com
+DOMAIN-SUFFIX,steamcontent.net
+DOMAIN-SUFFIX,steamserver.net
+
+# ========================================
+# Valve CDN
+# ========================================
+DOMAIN-SUFFIX,valve.net
+DOMAIN-SUFFIX,valvesoftware.com
+DOMAIN-SUFFIX,valvea.net
+
+# ========================================
+# Valve 游戏服务器
+# ========================================
+DOMAIN-SUFFIX,cm.steampowered.com
