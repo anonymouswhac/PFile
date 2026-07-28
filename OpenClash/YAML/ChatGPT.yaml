@@ -4,7 +4,7 @@
 
 proxy-providers:
 
-  Airport-1:
+  机场名称-1:
     type: http
     url: "订阅地址"
     path: ./proxy_provider/Airport-1.yaml
@@ -15,7 +15,7 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
       interval: 300
 
-  Airport-2:
+  机场名称-2:
     type: http
     url: "订阅地址"
     path: ./proxy_provider/Airport-2.yaml
@@ -26,7 +26,7 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
       interval: 300
 
-  Airport-3:
+  机场名称-3:
     type: http
     url: "订阅地址"
     path: ./proxy_provider/Airport-3.yaml
@@ -43,79 +43,202 @@ proxy-providers:
 
 proxy-groups:
 
-  # AI
-  - name: AI
-    type: select
-    include-all: true
-
-  # Media
-  - name: Media
-    type: select
-    include-all: true
-
-  # Crypto
-  - name: Crypto
-    type: select
-    include-all: true
-
-  # Game
-  - name: Game
-    type: select
-    include-all: true
-
-  # GitHub
-  - name: GitHub
-    type: select
-    include-all: true
-
-  # Telegram
-  - name: Telegram
-    type: select
-    include-all: true
-
-  # Social
-  - name: Social
-    type: select
-    include-all: true
-
-  # Google
-  - name: Google
-    type: select
-    include-all: true
-
-  # Microsoft
-  - name: Microsoft
-    type: select
-    include-all: true
-
-  # Apple
-  - name: Apple
-    type: select
-    include-all: true
-
-  # Check
-  - name: Check
-    type: select
-    include-all: true
-
-  # Block
-  - name: Block
+  # 默认策略
+  - name: ⭐ Default
     type: select
     proxies:
-      - REJECT
+      - 🏠 Direct
+      - 🧭 Select
+      - 📡 Auto
+      - 🇭🇰 HK
+      - 🇹🇼 TW
+      - 🇯🇵 JP
+      - 🇰🇷 KR
+      - 🇸🇬 SG
+      - 🇺🇸 US
+      - 🌏 Other
+      - ⛔ Reject
 
-  # Inside
-  - name: Inside
+  # 手动选择
+  - name: 🧭 Select
+    type: select
+    include-all: true
+
+  # 自动测速
+  - name: 📡 Auto
+    type: url-test
+    include-all: true
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+
+########################################
+#              地区策略
+########################################
+
+  # 香港
+  - name: 🇭🇰 HK
+    type: url-test
+    include-all: true
+    filter: "(?i)(?=.*(广港|香港|HK|Hong Kong|HongKong|🇭🇰)).*$"
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+
+  # 台湾
+  - name: 🇹🇼 TW
+    type: url-test
+    include-all: true
+    filter: "(?i)(?=.*(台湾|TW|Taiwan|🇹🇼)).*$"
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+
+  # 日本
+  - name: 🇯🇵 JP
+    type: url-test
+    include-all: true
+    filter: "(?i)(?=.*(日本|JP|Japan|东京|大阪|🇯🇵)).*$"
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+
+  # 韩国
+  - name: 🇰🇷 KR
+    type: url-test
+    include-all: true
+    filter: "(?i)(?=.*(韩国|KR|Korea|首尔|Seoul|🇰🇷)).*$"
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+
+  # 新加坡
+  - name: 🇸🇬 SG
+    type: url-test
+    include-all: true
+    filter: "(?i)(?=.*(新加坡|SG|Singapore|狮城|🇸🇬)).*$"
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+
+  # 美国
+  - name: 🇺🇸 US
+    type: url-test
+    include-all: true
+    filter: "(?i)(?=.*(美国|US|USA|United States|America|洛杉矶|硅谷|圣何塞|西雅图|纽约|🇺🇸)).*$"
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+
+  # 其它地区
+  - name: 🌏 Other
+    type: url-test
+    include-all: true
+    exclude-filter: "(?i)(广港|香港|HK|Hong Kong|HongKong|🇭🇰|台湾|TW|Taiwan|🇹🇼|日本|JP|Japan|东京|大阪|🇯🇵|韩国|KR|Korea|首尔|Seoul|🇰🇷|新加坡|SG|Singapore|狮城|🇸🇬|美国|US|USA|United States|America|洛杉矶|硅谷|圣何塞|西雅图|纽约|🇺🇸)"
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+
+########################################
+#              业务策略
+########################################
+
+  # AI
+  - name: 🤖 AI
+    type: select
+    proxies:
+      - ⭐ Default
+
+  # 流媒体
+  - name: 🎬 Media
+    type: select
+    proxies:
+      - ⭐ Default
+
+  # TikTok
+  - name: 🎵 TikTok
+    type: select
+    proxies:
+      - ⭐ Default
+
+  # 数字货币
+  - name: 💰 Crypto
+    type: select
+    proxies:
+      - ⭐ Default
+
+  # 游戏
+  - name: 🎮 Game
+    type: select
+    proxies:
+      - ⭐ Default
+
+  # GitHub
+  - name: 🐙 GitHub
+    type: select
+    proxies:
+      - ⭐ Default
+
+  # Telegram
+  - name: ✈️ Telegram
+    type: select
+    proxies:
+      - ⭐ Default
+
+  # 社交媒体
+  - name: 🌐 Social
+    type: select
+    proxies:
+      - ⭐ Default
+
+  # Google
+  - name: 🔍 Google
+    type: select
+    proxies:
+      - ⭐ Default
+
+  # Microsoft
+  - name: 🪟 Microsoft
+    type: select
+    proxies:
+      - ⭐ Default
+
+  # Apple
+  - name: 🍎 Apple
+    type: select
+    proxies:
+      - ⭐ Default
+
+  # 网络检测
+  - name: 📡 Check
+    type: select
+    proxies:
+      - ⭐ Default
+
+  # 广告拦截
+  - name: ⛔ Block
+    type: select
+    proxies:
+      - ⛔ Reject
+
+  # 国内直连
+  - name: 🏠 Inside
+    type: select
+    proxies:
+      - 🏠 Direct
+
+  # 国外网站
+  - name: 🌍 Outside
+    type: select
+    proxies:
+      - ⭐ Default
+
+  # 未知流量
+  - name: ❓ Unknown
+    type: select
+    proxies:
+      - ⭐ Default
+
+  # Direct
+  - name: 🏠 Direct
     type: select
     proxies:
       - DIRECT
 
-  # Outside
-  - name: Outside
+  # Reject
+  - name: ⛔ Reject
     type: select
-    include-all: true
-
-  # Unknown
-  - name: Unknown
-    type: select
-    include-all: true
+    proxies:
+      - REJECT
