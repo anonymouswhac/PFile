@@ -185,6 +185,8 @@ proxy-groups:
   - {name: 🪟 Microsoft, <<: *default}
   - {name: 🍎 Apple, <<: *default}
   - {name: 📡 Check, <<: *default}
+  - {name: 🚫 Block, <<: *default}
+  - {name: 🏠 Inside, <<: *default}
   - {name: 🌍 Outside, <<: *default}
   - {name: ❓ Unknown, <<: *default}
   
@@ -283,6 +285,27 @@ rules:
   - RULE-SET,Steam-CDN,🟢 Direct
   - RULE-SET,Steam-Class,🎮 Game
   - RULE-SET,Wargaming-Class,🎮 Game
+  - RULE-SET,Github-GeoSite,🐙 GitHub
+  - RULE-SET,Github-GeoSite,✈️ Telegram
+  - RULE-SET,Github-GeoIP,✈️ Telegram
+  - RULE-SET,WhatsApp-GeoSite,🌐 Social
+  - RULE-SET,Twitter-GeoSite,🌐 Social
+  - RULE-SET,Instagram-GeoSite,🌐 Social
+  - RULE-SET,Discord-GeoSite,🌐 Social
+  - RULE-SET,Google-GeoSite,🔍 Google
+  - RULE-SET,Google-GeoIP,🔍 Google
+  - RULE-SET,Microsoft-GeoSite,🪟 Microsoft
+  - RULE-SET,Apple-GeoSite,🍎 Apple
+  - RULE-SET,Check-Class,📡 Check
+  - RULE-SET,AD-GeoSite,🚫 Block
+  - RULE-SET,Adobe-Class,🚫 Block
+  - RULE-SET,Proxy-Class,🌍 Outside
+  - RULE-SET,Globe-Class,🌍 Outside
+  - RULE-SET,Direct-Class,🏠 Inside
+  - RULE-SET,China-GeoSite,🏠 Inside
+  - RULE-SET,China-GeoIP,🏠 Inside
+  - RULE-SET,Private-GeoSite,🏠 Inside
+  - MATCH,❓ Unknown
   
 ########################################
 #              规则合集
@@ -315,3 +338,23 @@ rule-providers:
   Steam-CDN: {<<: *class, url: "https://raw.githubusercontent.com/anonymouswhac/PFile/refs/heads/main/OpenClash/Rule/steamcdn.list"}
   Steam-Class: {<<: *class, url: "https://raw.githubusercontent.com/anonymouswhac/PFile/refs/heads/main/OpenClash/Rule/steam.list"}
   Wargaming-Class: {<<: *class, url: "https://raw.githubusercontent.com/anonymouswhac/PFile/refs/heads/main/OpenClash/Rule/wargaming.list"}
+  Github-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/github.mrs"}
+  Telegram-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/telegram.mrs"}
+  Telegram-GeoIP: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/telegram.mrs"}
+  WhatsApp-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/whatsapp.mrs"}
+  Twitter-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/x.mrs"}
+  Instagram-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/instagram.mrs"}
+  Discord-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/discord.mrs"}
+  Google-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google.mrs"}
+  Google-GeoIP: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/google.mrs"}
+  Microsoft-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/microsoft.mrs"}
+  Apple-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/apple.mrs"}
+  Check-Class: {<<: *class, url: "https://raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Check.list"}
+  AD-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-ads-all.mrs"}
+  Adobe-Class: {<<: *class, url: "https://raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Block.list"}
+  Proxy-Class: {<<: *class, url: "https://raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Proxy.list"}
+  Globe-Class: {<<: *class, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Global/Global.list"}
+  Direct-Class: {<<: *class, url: "https://raw.githubusercontent.com/liandu2024/clash/refs/heads/main/list/Direct.list"}
+  China-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/cn.mrs"}
+  China-GeoIP: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/cn.mrs"}
+  Private-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/private.mrs"}
