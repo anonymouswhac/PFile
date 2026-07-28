@@ -371,3 +371,22 @@ proxy-groups:
     type: select
     proxies:
       - REJECT
+
+########################################
+#              配置缓存
+########################################
+profile:
+  # 保存策略组选择
+  # 例如手动选择的机场节点
+  store-selected: true
+  # 保存Fake-IP映射
+  # 重启后减少DNS重新解析
+  store-fake-ip: true
+
+########################################
+#              实验功能
+########################################
+experimental:
+  # 启用缓存数据库
+  # 保存运行状态
+  cache-file: /etc/openclash/cache.db
