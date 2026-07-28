@@ -165,6 +165,49 @@ dns:
     - "localhost.ptlogin2.qq.com"
 
 ########################################
+#              流量嗅探
+########################################
+
+sniffer:
+
+  # 开启域名嗅探
+  enable: true
+
+  # 强制解析IP流量中的域名
+  parse-pure-ip: true
+
+  # 对DNS映射流量启用嗅探
+  force-dns-mapping: true
+
+  # 使用嗅探结果覆盖目标
+  override-destination: true
+
+  sniff:
+
+    # HTTP协议
+    HTTP:
+      ports:
+        - 80
+
+    # HTTPS协议
+    TLS:
+      ports:
+        - 443
+
+    # HTTP/3协议
+    QUIC:
+      ports:
+        - 443
+
+
+  # 跳过嗅探
+  skip-domain:
+
+    # 局域网
+    - "+.lan"
+    - "+.local"
+
+########################################
 #               策略组
 ########################################
 
