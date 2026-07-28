@@ -390,3 +390,37 @@ experimental:
   # 启用缓存数据库
   # 保存运行状态
   cache-file: /etc/openclash/cache.db
+
+########################################
+#              GeoData设置
+########################################
+# 使用GeoData模式
+# 开启后使用 geoip.dat / geosite.dat
+# Mihomo推荐模式
+geodata-mode: true
+# GeoSite匹配算法
+# succinct:
+# 低内存，占用更少，稳定
+geosite-matcher: succinct
+# GeoData加载模式
+# 针对软路由优化
+# 降低内存占用
+geodata-loader: memconservative
+# GeoData自动更新
+# 自动更新Geo数据库
+geo-auto-update: true
+# 更新周期
+# 单位：小时
+# 72小时更新一次
+geo-update-interval: 72
+# GeoData来源
+geox-url:
+  # IP归属数据库
+  geoip:
+    https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.dat
+  # 域名分类数据库
+  geosite:
+    https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat
+  # 国家IP数据库
+  mmdb:
+    https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country.mmdb
