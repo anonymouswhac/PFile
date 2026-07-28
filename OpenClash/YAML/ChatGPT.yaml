@@ -84,18 +84,23 @@ dns:
     - https://dns.quad9.net/dns-query
     - https://security.cloudflare-dns.com/dns-query
 
-  fake-ip-filter:
-    - "*.lan"
-    - "*.local"
-    - "*.localhost"
-    - "+.home.arpa"
-    - "msftconnecttest.com"
-    - "msftncsi.com"
-    - "courier.push.apple.com"
-    - "+.apple.com"
-    - "+.microsoft.com"
-    - "+.steamcontent.com"
-    - "localhost.ptlogin2.qq.com"
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    geosite:
+      - gfw
+
+fake-ip-filter:
+  - "*.lan"
+  - "*.local"
+  - "*.localhost"
+  - "+.home.arpa"
+  - "msftconnecttest.com"
+  - "msftncsi.com"
+  - "courier.push.apple.com"
+  - "+.microsoft.com"
+  - "+.steamcontent.com"
+  - "+.steamusercontent.com"
 
 ########################################
 #              流量嗅探
@@ -155,7 +160,7 @@ experimental:
 #              策略组
 ########################################
 
-default: ⭐ Default
+default: &default
   type: select
   proxies:
     - 🧭 Select
@@ -265,7 +270,7 @@ proxy-groups:
 rules:
   - RULE-SET,ChatGPT-GeoSite,🤖 AI
   - RULE-SET,Claude-GeoSite,🤖 AI
-  - RULE-SET,Meta-GeoSite,🤖 AI
+  - RULE-SET,Meta-Class,🤖 AI
   - RULE-SET,Perplexity-GeoSite,🤖 AI
   - RULE-SET,Copilot-GeoSite,🤖 AI
   - RULE-SET,Gemini-GeoSite,🤖 AI
@@ -286,8 +291,8 @@ rules:
   - RULE-SET,Steam-Class,🎮 Game
   - RULE-SET,Wargaming-Class,🎮 Game
   - RULE-SET,Github-GeoSite,🐙 GitHub
-  - RULE-SET,Github-GeoSite,✈️ Telegram
-  - RULE-SET,Github-GeoIP,✈️ Telegram
+  - RULE-SET,Telegram-GeoSite,✈️ Telegram
+  - RULE-SET,Telegram-GeoIP,✈️ Telegram
   - RULE-SET,WhatsApp-GeoSite,🌐 Social
   - RULE-SET,Twitter-GeoSite,🌐 Social
   - RULE-SET,Instagram-GeoSite,🌐 Social
@@ -318,7 +323,7 @@ rule-anchor:
 rule-providers:
   ChatGPT-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/openai.mrs"}
   Claude-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/anthropic.mrs"}
-  Meta-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/meta.mrs"}
+  Meta-Class: {<<: *domain, url: "https://raw.githubusercontent.com/anonymouswhac/PFile/refs/heads/main/OpenClash/Rule/meta.list"}
   Perplexity-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/perplexity.mrs"}
   Copilot-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/github-copilot.mrs"}
   Gemini-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google-gemini.mrs"}
