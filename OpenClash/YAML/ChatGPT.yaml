@@ -424,3 +424,46 @@ geox-url:
   # 国家IP数据库
   mmdb:
     https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country.mmdb
+
+########################################
+#              分流规则
+########################################
+# 广告拦截
+- GEOSITE,category-ads-all,🚫 Block
+# AI服务
+# 包含 Copilot
+- GEOSITE,category-ai,🤖 AI
+- DOMAIN-SUFFIX,copilot.microsoft.com,🤖 AI
+# 流媒体
+# YouTube归这里
+- GEOSITE,category-media,🎬 Media
+# TikTok
+- GEOSITE,tiktok,🎵 TikTok
+# 数字货币
+- RULE-SET,Crypto,💰 Crypto
+# 游戏
+# Steam下载直连
+- DOMAIN-SUFFIX,steamcontent.com,DIRECT
+- GEOSITE,category-game,🎮 Game
+- DOMAIN-SUFFIX,wargaming.net,🎮 Game
+# GitHub
+- GEOSITE,github,🐙 GitHub
+# Telegram
+- GEOSITE,telegram,✈️ Telegram
+# 社交媒体
+- GEOSITE,category-social-media,🌐 Social
+# Google
+# YouTube已经被Media提前匹配
+- GEOSITE,google,🔍 Google
+# Microsoft
+# Copilot不会到这里
+- GEOSITE,microsoft,🪟 Microsoft
+# Apple
+- GEOSITE,apple,🍎 Apple
+# 网络检测
+- RULE-SET,Check,📡 Check
+# 中国大陆
+- GEOSITE,cn,🏠 Inside
+- GEOIP,CN,🏠 Inside
+# 最终
+- MATCH,❓ Unknown
