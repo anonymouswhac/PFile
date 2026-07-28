@@ -1,0 +1,26 @@
+# ========================================
+# Wargaming
+# ========================================
+
+# 主站
+DOMAIN-SUFFIX,wargaming.net
+
+# 游戏官网
+DOMAIN-SUFFIX,worldoftanks.com
+DOMAIN-SUFFIX,worldoftanks.asia
+DOMAIN-SUFFIX,worldoftanks.eu
+
+DOMAIN-SUFFIX,worldofwarships.com
+DOMAIN-SUFFIX,worldofwarships.asia
+DOMAIN-SUFFIX,worldofwarships.eu
+
+DOMAIN-SUFFIX,worldoftanksblitz.com
+
+# Game Center
+DOMAIN-SUFFIX,wgcdn.co
+DOMAIN-SUFFIX,wgcdn.net
+DOMAIN-SUFFIX,wgstatic.com
+DOMAIN-SUFFIX,wgstatus.com
+
+# API / 开发者
+DOMAIN-SUFFIX,developers.wargaming.net
