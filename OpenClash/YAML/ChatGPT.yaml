@@ -29,20 +29,12 @@ find-process-mode: strict
 global-client-fingerprint: chrome
 keep-alive-idle: 600
 keep-alive-interval: 15
-
-
 external-controller: 0.0.0.0:9090
-secret: "请修改为随机密码"
+secret: "123456"
 external-controller-cors:
   allow-origins:
     - "*"
   allow-private-network: true
-# 使用 Geo 数据库模式
-geodata-mode: true
-# 自动更新 Geo 数据库
-geo-auto-update: true
-# Geo 数据库更新时间（小时）
-geo-update-interval: 24
 
 ########################################
 #              GeoData设置
