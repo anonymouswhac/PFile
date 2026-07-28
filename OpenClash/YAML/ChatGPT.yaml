@@ -3,15 +3,54 @@
 ########################################
 
 proxy-providers:
-  Airport1:
+
+  airport1:
+
+    url: "机场订阅连接1"
     type: http
-    url: 你的机场订阅地址
     interval: 86400
     path: ./proxy_provider/airport1.yaml
     health-check:
       enable: true
       url: https://www.gstatic.com/generate_204
       interval: 300
+    proxy: 🟢 Direct
+    
+  airport2:
+
+    url: "机场订阅连接2"
+    type: http
+    interval: 86400
+    path: ./proxy_provider/airport2.yaml
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 300
+    proxy: 🟢 Direct
+    
+  airport3:
+
+    url: "机场订阅连接3"
+    type: http
+    interval: 86400
+    path: ./proxy_provider/airport3.yaml
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 300
+    proxy: 🟢 Direct
+
+  airport4:
+
+    url: "机场订阅连接4"
+    type: http
+    interval: 86400
+    path: ./proxy_provider/airport4.yaml
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 300
+    proxy: 🟢 Direct
 
 proxies:
   - {name: 🟢 Direct, type: direct}
@@ -61,13 +100,11 @@ geox-url:
 dns:
   enable: true
   listen: 0.0.0.0:7874
+  ipv6: true
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
-  ipv6: true
   respect-rules: true
   use-hosts: true
-  prefer-h3: false
-  cache-algorithm: arc
 
   nameserver-policy:
     "geosite:cn":
@@ -75,14 +112,13 @@ dns:
       - https://doh.pub/dns-query
 
   nameserver:
-    - https://cloudflare-dns.com/dns-query
-    - https://dns.google/dns-query
+    - https://223.5.5.5/dns-query
+    - https://doh.pub/dns-query
 
   fallback:
     - https://cloudflare-dns.com/dns-query
-    - https://dns.google/dns-query
-    - https://dns.quad9.net/dns-query
     - https://security.cloudflare-dns.com/dns-query
+    - https://dns.google/dns-query
 
   fallback-filter:
     geoip: true
@@ -133,7 +169,7 @@ sniffer:
 
 tun:
   enable: true
-  stack: mixed
+  stack: gvisor
   mtu: 1490
   auto-route: true
   auto-redirect: true
