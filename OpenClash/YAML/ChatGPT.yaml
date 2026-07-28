@@ -38,6 +38,65 @@ proxy-providers:
       interval: 300
 
 ########################################
+#              基础设置
+########################################
+
+# 混合代理端口（HTTP + SOCKS5）
+mixed-port: 7890
+
+# 允许局域网设备连接
+allow-lan: true
+
+# 监听所有网卡
+bind-address: "*"
+
+# 运行模式：规则模式
+mode: rule
+
+# 日志等级：info / warning / error / debug / silent
+log-level: info
+
+# 外部控制器（供 Zashboard、MetaCubeXD 等 Dashboard 使用）
+external-controller: 0.0.0.0:9090
+
+# Dashboard API 密码（请自行修改）
+secret: "请修改为随机密码"
+
+# 允许 Dashboard 跨域访问
+external-controller-cors:
+  allow-origins:
+    - "*"
+  allow-private-network: true
+
+# 启用 IPv6
+ipv6: true
+
+# 统一延迟计算（新版 Mihomo 推荐）
+unified-delay: true
+
+# TCP 并发连接（提升连接建立速度）
+tcp-concurrent: true
+
+# 进程识别模式
+find-process-mode: strict
+
+# 全局 TLS Client Fingerprint
+global-client-fingerprint: chrome
+
+# TCP Keep Alive
+keep-alive-idle: 600
+keep-alive-interval: 15
+
+# 使用 Geo 数据库模式
+geodata-mode: true
+
+# 自动更新 Geo 数据库
+geo-auto-update: true
+
+# Geo 数据库更新时间（小时）
+geo-update-interval: 24
+
+########################################
 #               策略组
 ########################################
 
