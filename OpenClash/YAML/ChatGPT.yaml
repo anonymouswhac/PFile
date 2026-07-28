@@ -13,6 +13,10 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
       interval: 300
 
+proxies:
+  - {name: 🟢 Direct, type: direct}
+  - {name: 🔴 Reject, type: reject}
+  
 ########################################
 #              基础设置
 ########################################
@@ -122,30 +126,69 @@ sniffer:
 ########################################
 
 tun:
-  # 开启TUN模式
   enable: true
-  # 混合网络栈
   stack: mixed
-  # 实测稳定MTU
   mtu: 1490
-  # 自动管理路由
   auto-route: true
-  # Linux透明代理优化
   auto-redirect: true
-  # 自动检测出口
   auto-detect-interface: true
-  # 严格路由
   strict-route: true
-  # DNS劫持
   dns-hijack:
     - any:53
+
+########################################
+#              Profile缓存
+########################################
+
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+########################################
+#              实验功能
+########################################
+
+experimental:
+  cache-file: /etc/openclash/cache.db
 
 ########################################
 #              策略组
 ########################################
 
+default: ⭐ Default
+  type: select
+  proxies:
+    - 🧭 Select
+    - 📡 Auto
+    - 🟢 Direct
+    - 🔴 Reject
+    - 🇭🇰 HK
+    - 🇹🇼 TW
+    - 🇯🇵 JP
+    - 🇰🇷 KR
+    - 🇸🇬 SG
+    - 🇺🇸 US
+    - 🌏 Other
+
 proxy-groups:
 
+  # 业务分流组
+  - {name: 🤖 AI, <<: *default}
+  - {name: 🎬 Media, <<: *default}
+  - {name: 🎵 TikTok, <<: *default}
+  - {name: 💰 Crypto, <<: *default}
+  - {name: 🎮 Game, <<: *default}
+  - {name: 🐙 GitHub, <<: *default}
+  - {name: ✈️ Telegram, <<: *default}
+  - {name: 🌐 Social, <<: *default}
+  - {name: 🔍 Google, <<: *default}
+  - {name: 🪟 Microsoft, <<: *default}
+  - {name: 🍎 Apple, <<: *default}
+  - {name: 📡 Check, <<: *default}
+  - {name: 🌍 Outside, <<: *default}
+  - {name: ❓ Unknown, <<: *default}
+  
+  # 地区分流组
   - name: 🧭 Select
     type: select
     include-all: true
@@ -213,159 +256,47 @@ proxy-groups:
     tolerance: 50
     filter: "(?i)^(?!.*(香港|HK|Hong Kong|台湾|TW|Taiwan|日本|JP|Japan|韩国|KR|Korea|新加坡|SG|Singapore|美国|US|USA)).*$"
 
-  - name: 🟢 Direct
-    type: select
-    proxies:
-      - DIRECT
-
-  - name: 🔴 Reject
-    type: select
-    proxies:
-      - REJECT
-
-  - name: ⭐ Default
-    type: select
-    proxies:
-      - 🧭 Select
-      - 📡 Auto
-      - 🇭🇰 HK
-      - 🇹🇼 TW
-      - 🇯🇵 JP
-      - 🇰🇷 KR
-      - 🇸🇬 SG
-      - 🇺🇸 US
-      - 🌏 Other
-      - 🟢 Direct
-      - 🔴 Reject
-
-  - name: 🤖 AI
-    type: select
-    proxies:
-      - ⭐ Default
-
-  - name: 🎬 Media
-    type: select
-    proxies:
-      - ⭐ Default
-
-  - name: 🎵 TikTok
-    type: select
-    proxies:
-      - ⭐ Default
-
-  - name: 💰 Crypto
-    type: select
-    proxies:
-      - ⭐ Default
-
-  - name: 🎮 Game
-    type: select
-    proxies:
-      - ⭐ Default
-
-  - name: 🐙 GitHub
-    type: select
-    proxies:
-      - ⭐ Default
-
-  - name: ✈️ Telegram
-    type: select
-    proxies:
-      - ⭐ Default
-
-  - name: 🌐 Social
-    type: select
-    proxies:
-      - ⭐ Default
-
-  - name: 🔍 Google
-    type: select
-    proxies:
-      - ⭐ Default
-
-  - name: 🪟 Microsoft
-    type: select
-    proxies:
-      - ⭐ Default
-
-  - name: 🍎 Apple
-    type: select
-    proxies:
-      - ⭐ Default
-
-  - name: 📡 Check
-    type: select
-    proxies:
-      - ⭐ Default
-
-  - name: 🌍 Outside
-    type: select
-    proxies:
-      - ⭐ Default
-
-  - name: ❓ Unknown
-    type: select
-    proxies:
-      - ⭐ Default
-
-########################################
-#              配置缓存
-########################################
-profile:
-  # 保存策略组选择
-  # 例如手动选择的机场节点
-  store-selected: true
-  # 保存Fake-IP映射
-  # 重启后减少DNS重新解析
-  store-fake-ip: true
-
-########################################
-#              实验功能
-########################################
-experimental:
-  # 启用缓存数据库
-  # 保存运行状态
-  cache-file: /etc/openclash/cache.db
-
 ########################################
 #              分流规则
 ########################################
-# 广告拦截
-- GEOSITE,category-ads-all,🚫 Block
-# AI服务
-# 包含 Copilot
-- GEOSITE,category-ai,🤖 AI
-- DOMAIN-SUFFIX,copilot.microsoft.com,🤖 AI
-# 流媒体
-# YouTube归这里
-- GEOSITE,category-media,🎬 Media
-# TikTok
-- GEOSITE,tiktok,🎵 TikTok
-# 数字货币
-- RULE-SET,Crypto,💰 Crypto
-# 游戏
-# Steam下载直连
-- DOMAIN-SUFFIX,steamcontent.com,DIRECT
-- GEOSITE,category-game,🎮 Game
-- DOMAIN-SUFFIX,wargaming.net,🎮 Game
-# GitHub
-- GEOSITE,github,🐙 GitHub
-# Telegram
-- GEOSITE,telegram,✈️ Telegram
-# 社交媒体
-- GEOSITE,category-social-media,🌐 Social
-# Google
-# YouTube已经被Media提前匹配
-- GEOSITE,google,🔍 Google
-# Microsoft
-# Copilot不会到这里
-- GEOSITE,microsoft,🪟 Microsoft
-# Apple
-- GEOSITE,apple,🍎 Apple
-# 网络检测
-- RULE-SET,Check,📡 Check
-# 中国大陆
-- GEOSITE,cn,🏠 Inside
-- GEOIP,CN,🏠 Inside
-# 最终
-- MATCH,❓ Unknown
+
+rules:
+  - RULE-SET,ChatGPT-GeoSite,🤖 AI
+  - RULE-SET,Claude-GeoSite,🤖 AI
+  - RULE-SET,Meta-GeoSite,🤖 AI
+  - RULE-SET,Perplexity-GeoSite,🤖 AI
+  - RULE-SET,Copilot-GeoSite,🤖 AI
+  - RULE-SET,Gemini-GeoSite,🤖 AI
+  - RULE-SET,Youtube-GeoSite,🎬 Media
+  - RULE-SET,Netflix-GeoSite,🎬 Media
+  - RULE-SET,Netflix-GeoIP,🎬 Media
+  - RULE-SET,Disney-GeoSite,🎬 Media
+  - RULE-SET,Spotify-GeoSite,🎬 Media
+  - RULE-SET,Amazon-GeoSite,🎬 Media
+  - RULE-SET,HBO-GeoSite,🎬 Media
+  - RULE-SET,TikTok-GeoSite,🎵 TikTok
+  - RULE-SET,TikTok-GeoSite,💰 Crypto
+  
+########################################
+#              规则合集
+########################################
+rule-anchor:
+  ip: &ip {type: http, interval: 86400, behavior: ipcidr, format: mrs}
+  domain: &domain {type: http, interval: 86400, behavior: domain, format: mrs}
+  class: &class {type: http, interval: 86400, behavior: classical, format: text}
+
+rule-providers:
+  ChatGPT-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/openai.mrs"}
+  Claude-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/anthropic.mrs"}
+  Meta-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/meta.mrs"}
+  Perplexity-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/perplexity.mrs"}
+  Copilot-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/github-copilot.mrs"}
+  Gemini-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/google-gemini.mrs"}
+  Youtube-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/youtube.mrs"}
+  Netflix-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/netflix.mrs"}
+  Netflix-GeoIP: {<<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/netflix.mrs"}
+  Disney-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/disney.mrs"}
+  Spotify-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/spotify.mrs"}
+  Amazon-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/amazon.mrs"}
+  HBO-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/hbo.mrs"}
+  TikTok-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/tiktok.mrs"}
