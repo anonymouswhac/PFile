@@ -51,98 +51,71 @@ geox-url:
   mmdb: https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country.mmdb
 
 ########################################
-#                 DNS设置
+#              DNS设置
 ########################################
+
 dns:
-  # 开启DNS
   enable: true
-  # DNS监听地址
   listen: 0.0.0.0:7874
-  # Fake-IP模式
   enhanced-mode: fake-ip
-  # Fake-IP地址池
   fake-ip-range: 198.18.0.1/16
-  # 开启IPv6 DNS解析
   ipv6: true
-  # DNS请求遵循规则
   respect-rules: true
-  # 使用系统hosts
   use-hosts: true
-  # HTTP/3 DNS优先
-  # PPPoE环境建议关闭，提升稳定性
   prefer-h3: false
+  cache-algorithm: arc
+
   nameserver-policy:
-    # 中国大陆域名使用国内DNS
     "geosite:cn":
       - https://223.5.5.5/dns-query
       - https://doh.pub/dns-query
-  # 非国内域名默认使用国外DNS
+
   nameserver:
-    # Cloudflare DNS
     - https://cloudflare-dns.com/dns-query
-    # Google DNS
     - https://dns.google/dns-query
-  # 备用DNS
+
   fallback:
-    # Cloudflare DNS
     - https://cloudflare-dns.com/dns-query
-    # Google DNS
     - https://dns.google/dns-query
-    # Quad9安全DNS
     - https://dns.quad9.net/dns-query
-    # Cloudflare安全DNS
     - https://security.cloudflare-dns.com/dns-query
-  # Fake-IP排除
+
   fake-ip-filter:
-    # 局域网
     - "*.lan"
     - "*.local"
     - "*.localhost"
     - "+.home.arpa"
-    # Windows网络检测
     - "msftconnecttest.com"
     - "msftncsi.com"
-    # Apple推送服务
     - "courier.push.apple.com"
-    # Apple服务
     - "+.apple.com"
-    # Microsoft服务
     - "+.microsoft.com"
-    # Steam相关
     - "+.steamcontent.com"
-    # QQ登录
     - "localhost.ptlogin2.qq.com"
 
 ########################################
 #              流量嗅探
 ########################################
+
 sniffer:
-  # 开启域名嗅探
   enable: true
-  # 强制解析IP流量中的域名
   parse-pure-ip: true
-  # 对DNS映射流量启用嗅探
   force-dns-mapping: true
-  # 使用嗅探结果覆盖目标地址
   override-destination: true
   sniff:
-    # HTTP
     HTTP:
       ports:
         - 80
-    # HTTPS
     TLS:
       ports:
         - 443
-    # HTTP/3
     QUIC:
       ports:
         - 443
-  # 跳过嗅探
   skip-domain:
-    # 局域网
     - "+.lan"
     - "+.local"
+    - "+.home.arpa"
     
 ########################################
 #                 TUN设置
