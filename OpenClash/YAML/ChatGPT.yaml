@@ -275,7 +275,14 @@ rules:
   - RULE-SET,Amazon-GeoSite,🎬 Media
   - RULE-SET,HBO-GeoSite,🎬 Media
   - RULE-SET,TikTok-GeoSite,🎵 TikTok
-  - RULE-SET,TikTok-GeoSite,💰 Crypto
+  - RULE-SET,OKX-GeoSite,💰 Crypto
+  - RULE-SET,Bybit-GeoSite,💰 Crypto
+  - RULE-SET,Binance-GeoSite,💰 Crypto
+  - RULE-SET,Bitget-Class,💰 Crypto
+  - RULE-SET,Stake-Class,💰 Crypto
+  - RULE-SET,Steam-CDN,🟢 Direct
+  - RULE-SET,Steam-Class,🎮 Game
+  - RULE-SET,Wargaming-Class,🎮 Game
   
 ########################################
 #              规则合集
@@ -300,3 +307,11 @@ rule-providers:
   Amazon-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/amazon.mrs"}
   HBO-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/hbo.mrs"}
   TikTok-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/tiktok.mrs"}
+  OKX-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/okx.mrs"}
+  Bybit-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/bybit.mrs"}
+  Binance-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/binance.mrs"}
+  Bitget-Class: {<<: *class, url: "https://raw.githubusercontent.com/anonymouswhac/PFile/refs/heads/main/OpenClash/Rule/bitget.list"}
+  Stake-Class: {<<: *class, url: "https://raw.githubusercontent.com/anonymouswhac/PFile/refs/heads/main/OpenClash/Rule/stake.list"}
+  Steam-CDN: {<<: *class, url: "https://raw.githubusercontent.com/anonymouswhac/PFile/refs/heads/main/OpenClash/Rule/steamcdn.list"}
+  Steam-Class: {<<: *class, url: "https://raw.githubusercontent.com/anonymouswhac/PFile/refs/heads/main/OpenClash/Rule/steam.list"}
+  Wargaming-Class: {<<: *class, url: "https://raw.githubusercontent.com/anonymouswhac/PFile/refs/heads/main/OpenClash/Rule/wargaming.list"}
