@@ -206,10 +206,11 @@ proxy-groups:
     type: url-test
     include-all: true
     exclude-type: direct
-    exclude-filter: "流量|剩余|官网|Expire|Traffic"
+    exclude-filter: "流量|剩余|官网|过期|到期|Expire|Traffic|Reset|重置"
     url: https://www.gstatic.com/generate_204
     interval: 300
     tolerance: 50
+    lazy: true
 
   - name: 🇭🇰 HK
     type: url-test
