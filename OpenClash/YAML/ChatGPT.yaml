@@ -1,36 +1,13 @@
 ########################################
-#              机场订阅信息
+#              机场订阅
 ########################################
+
 proxy-providers:
-
-  机场名称-1:
+  Airport1:
     type: http
-    url: "订阅地址"
-    path: ./proxy_provider/Airport-1.yaml
+    url: 你的机场订阅地址
     interval: 86400
-    proxy: DIRECT
-    health-check:
-      enable: true
-      url: https://www.gstatic.com/generate_204
-      interval: 300
-
-  机场名称-2:
-    type: http
-    url: "订阅地址"
-    path: ./proxy_provider/Airport-2.yaml
-    interval: 86400
-    proxy: DIRECT
-    health-check:
-      enable: true
-      url: https://www.gstatic.com/generate_204
-      interval: 300
-
-  机场名称-3:
-    type: http
-    url: "订阅地址"
-    path: ./proxy_provider/Airport-3.yaml
-    interval: 86400
-    proxy: DIRECT
+    path: ./proxy_provider/airport1.yaml
     health-check:
       enable: true
       url: https://www.gstatic.com/generate_204
@@ -39,44 +16,47 @@ proxy-providers:
 ########################################
 #              基础设置
 ########################################
-# 混合代理端口（HTTP + SOCKS5）
+
 mixed-port: 7890
-# 允许局域网设备连接
 allow-lan: true
-# 监听所有网卡
 bind-address: "*"
-# 运行模式：规则模式
 mode: rule
-# 日志等级：info / warning / error / debug / silent
 log-level: info
-# 外部控制器（供 Zashboard、MetaCubeXD 等 Dashboard 使用）
+ipv6: true
+unified-delay: true
+tcp-concurrent: true
+find-process-mode: strict
+global-client-fingerprint: chrome
+keep-alive-idle: 600
+keep-alive-interval: 15
+
+
 external-controller: 0.0.0.0:9090
-# Dashboard API 密码（请自行修改）
 secret: "请修改为随机密码"
-# 允许 Dashboard 跨域访问
 external-controller-cors:
   allow-origins:
     - "*"
   allow-private-network: true
-# 启用 IPv6
-ipv6: true
-# 统一延迟计算（新版 Mihomo 推荐）
-unified-delay: true
-# TCP 并发连接（提升连接建立速度）
-tcp-concurrent: true
-# 进程识别模式
-find-process-mode: strict
-# 全局 TLS Client Fingerprint
-global-client-fingerprint: chrome
-# TCP Keep Alive
-keep-alive-idle: 600
-keep-alive-interval: 15
 # 使用 Geo 数据库模式
 geodata-mode: true
 # 自动更新 Geo 数据库
 geo-auto-update: true
 # Geo 数据库更新时间（小时）
 geo-update-interval: 24
+
+########################################
+#              GeoData设置
+########################################
+
+geodata-mode: true
+geosite-matcher: succinct
+geodata-loader: memconservative
+geo-auto-update: true
+geo-update-interval: 72
+geox-url:
+  geoip: https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.dat
+  geosite: https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat
+  mmdb: https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country.mmdb
 
 ########################################
 #                 DNS设置
@@ -196,14 +176,91 @@ tun:
     - any:53
 
 ########################################
-#               策略组
+#              策略组
 ########################################
+
 proxy-groups:
-  # 默认策略
+
+  - name: 🧭 Select
+    type: select
+    include-all: true
+
+  - name: 📡 Auto
+    type: url-test
+    include-all: true
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+
+  - name: 🇭🇰 HK
+    type: url-test
+    include-all: true
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    filter: "(?=.*(广港|香港|HK|Hong Kong|🇭🇰|HongKong)).*$"
+
+  - name: 🇹🇼 TW
+    type: url-test
+    include-all: true
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    filter: "(?=.*(台湾|TW|Taiwan|🇹🇼|TaiWan)).*$"
+
+  - name: 🇯🇵 JP
+    type: url-test
+    include-all: true
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    filter: "(?=.*(日本|JP|Japan|🇯🇵)).*$"
+
+  - name: 🇰🇷 KR
+    type: url-test
+    include-all: true
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    filter: "(?=.*(韩国|KR|Korea|🇰🇷)).*$"
+
+  - name: 🇸🇬 SG
+    type: url-test
+    include-all: true
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    filter: "(?=.*(新加坡|SG|Singapore|🇸🇬)).*$"
+
+  - name: 🇺🇸 US
+    type: url-test
+    include-all: true
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    filter: "(?=.*(美国|US|USA|United States|🇺🇸)).*$"
+
+  - name: 🌏 Other
+    type: url-test
+    include-all: true
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    filter: "(?i)^(?!.*(香港|HK|Hong Kong|台湾|TW|Taiwan|日本|JP|Japan|韩国|KR|Korea|新加坡|SG|Singapore|美国|US|USA)).*$"
+
+  - name: 🟢 Direct
+    type: select
+    proxies:
+      - DIRECT
+
+  - name: 🔴 Reject
+    type: select
+    proxies:
+      - REJECT
+
   - name: ⭐ Default
     type: select
     proxies:
-      - 🏠 Direct
       - 🧭 Select
       - 📡 Auto
       - 🇭🇰 HK
@@ -213,164 +270,78 @@ proxy-groups:
       - 🇸🇬 SG
       - 🇺🇸 US
       - 🌏 Other
-      - ⛔ Reject
-  # 手动选择
-  - name: 🧭 Select
-    type: select
-    include-all: true
-  # 自动测速
-  - name: 📡 Auto
-    type: url-test
-    include-all: true
-    url: https://www.gstatic.com/generate_204
-    interval: 300
+      - 🟢 Direct
+      - 🔴 Reject
 
-########################################
-#              地区策略
-########################################
-  # 香港
-  - name: 🇭🇰 HK
-    type: url-test
-    include-all: true
-    filter: "(?i)(?=.*(广港|香港|HK|Hong Kong|HongKong|🇭🇰)).*$"
-    url: https://www.gstatic.com/generate_204
-    interval: 300
-  # 台湾
-  - name: 🇹🇼 TW
-    type: url-test
-    include-all: true
-    filter: "(?i)(?=.*(台湾|TW|Taiwan|🇹🇼)).*$"
-    url: https://www.gstatic.com/generate_204
-    interval: 300
-  # 日本
-  - name: 🇯🇵 JP
-    type: url-test
-    include-all: true
-    filter: "(?i)(?=.*(日本|JP|Japan|东京|大阪|🇯🇵)).*$"
-    url: https://www.gstatic.com/generate_204
-    interval: 300
-  # 韩国
-  - name: 🇰🇷 KR
-    type: url-test
-    include-all: true
-    filter: "(?i)(?=.*(韩国|KR|Korea|首尔|Seoul|🇰🇷)).*$"
-    url: https://www.gstatic.com/generate_204
-    interval: 300
-  # 新加坡
-  - name: 🇸🇬 SG
-    type: url-test
-    include-all: true
-    filter: "(?i)(?=.*(新加坡|SG|Singapore|狮城|🇸🇬)).*$"
-    url: https://www.gstatic.com/generate_204
-    interval: 300
-  # 美国
-  - name: 🇺🇸 US
-    type: url-test
-    include-all: true
-    filter: "(?i)(?=.*(美国|US|USA|United States|America|洛杉矶|硅谷|圣何塞|西雅图|纽约|🇺🇸)).*$"
-    url: https://www.gstatic.com/generate_204
-    interval: 300
-  # 其它地区
-  - name: 🌏 Other
-    type: url-test
-    include-all: true
-    exclude-filter: "(?i)(广港|香港|HK|Hong Kong|HongKong|🇭🇰|台湾|TW|Taiwan|🇹🇼|日本|JP|Japan|东京|大阪|🇯🇵|韩国|KR|Korea|首尔|Seoul|🇰🇷|新加坡|SG|Singapore|狮城|🇸🇬|美国|US|USA|United States|America|洛杉矶|硅谷|圣何塞|西雅图|纽约|🇺🇸)"
-    url: https://www.gstatic.com/generate_204
-    interval: 300
-
-########################################
-#              业务策略
-########################################
-  # AI
   - name: 🤖 AI
     type: select
     proxies:
       - ⭐ Default
-  # 流媒体
+
   - name: 🎬 Media
     type: select
     proxies:
       - ⭐ Default
-  # TikTok
+
   - name: 🎵 TikTok
     type: select
     proxies:
       - ⭐ Default
-  # 数字货币
+
   - name: 💰 Crypto
     type: select
     proxies:
       - ⭐ Default
-  # 游戏
+
   - name: 🎮 Game
     type: select
     proxies:
       - ⭐ Default
-  # GitHub
+
   - name: 🐙 GitHub
     type: select
     proxies:
       - ⭐ Default
-  # Telegram
+
   - name: ✈️ Telegram
     type: select
     proxies:
       - ⭐ Default
-  # 社交媒体
+
   - name: 🌐 Social
     type: select
     proxies:
       - ⭐ Default
-  # Google
+
   - name: 🔍 Google
     type: select
     proxies:
       - ⭐ Default
-  # Microsoft
+
   - name: 🪟 Microsoft
     type: select
     proxies:
       - ⭐ Default
-  # Apple
+
   - name: 🍎 Apple
     type: select
     proxies:
       - ⭐ Default
-  # 网络检测
+
   - name: 📡 Check
     type: select
     proxies:
       - ⭐ Default
-  # 广告拦截
-  - name: ⛔ Block
-    type: select
-    proxies:
-      - ⛔ Reject
-  # 国内直连
-  - name: 🏠 Inside
-    type: select
-    proxies:
-      - 🏠 Direct
-  # 国外网站
+
   - name: 🌍 Outside
     type: select
     proxies:
       - ⭐ Default
-  # 未知流量
+
   - name: ❓ Unknown
     type: select
     proxies:
       - ⭐ Default
-  # Direct
-  - name: 🏠 Direct
-    type: select
-    proxies:
-      - DIRECT
-  # Reject
-  - name: ⛔ Reject
-    type: select
-    proxies:
-      - REJECT
 
 ########################################
 #              配置缓存
@@ -390,40 +361,6 @@ experimental:
   # 启用缓存数据库
   # 保存运行状态
   cache-file: /etc/openclash/cache.db
-
-########################################
-#              GeoData设置
-########################################
-# 使用GeoData模式
-# 开启后使用 geoip.dat / geosite.dat
-# Mihomo推荐模式
-geodata-mode: true
-# GeoSite匹配算法
-# succinct:
-# 低内存，占用更少，稳定
-geosite-matcher: succinct
-# GeoData加载模式
-# 针对软路由优化
-# 降低内存占用
-geodata-loader: memconservative
-# GeoData自动更新
-# 自动更新Geo数据库
-geo-auto-update: true
-# 更新周期
-# 单位：小时
-# 72小时更新一次
-geo-update-interval: 72
-# GeoData来源
-geox-url:
-  # IP归属数据库
-  geoip:
-    https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.dat
-  # 域名分类数据库
-  geosite:
-    https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat
-  # 国家IP数据库
-  mmdb:
-    https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country.mmdb
 
 ########################################
 #              分流规则
