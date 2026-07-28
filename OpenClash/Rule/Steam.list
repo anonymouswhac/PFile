@@ -1,3 +1,36 @@
+# ========================================
+# Steam 商店
+# ========================================
 DOMAIN-SUFFIX,steampowered.com
+DOMAIN-SUFFIX,store.steampowered.com
+DOMAIN-SUFFIX,help.steampowered.com
+DOMAIN-SUFFIX,checkout.steampowered.com
+DOMAIN-SUFFIX,api.steampowered.com
+
+# ========================================
+# Steam Community
+# ========================================
 DOMAIN-SUFFIX,steamcommunity.com
 DOMAIN-SUFFIX,steam-chat.com
+DOMAIN-SUFFIX,steamgames.com
+
+# ========================================
+# Steam 登录
+# ========================================
+DOMAIN-SUFFIX,steamstatic.com
+DOMAIN-SUFFIX,steamcdn-a.akamaihd.net
+
+# ========================================
+# Steam Cloud
+# ========================================
+DOMAIN-SUFFIX,steamusercontent.com
+
+# ========================================
+# Steam Workshop
+# ========================================
+DOMAIN-SUFFIX,steamusercontent-a.akamaihd.net
+
+# ========================================
+# Steam 直播
+# ========================================
+DOMAIN-SUFFIX,steambroadcast.akamaized.net
