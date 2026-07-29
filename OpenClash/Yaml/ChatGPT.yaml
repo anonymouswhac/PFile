@@ -4,9 +4,9 @@
 
 proxy-providers:
 
-  airport1:
+  搬瓦工:
 
-    url: "机场订阅连接1"
+    url: "https://link.chenxh.dpdns.org:2096/sub/anonymouswhac"
     type: http
     interval: 86400
     path: ./proxy_provider/airport1.yaml
@@ -16,9 +16,9 @@ proxy-providers:
       interval: 300
     proxy: 🟢 Direct
     
-  airport2:
+  隧道云:
 
-    url: "机场订阅连接2"
+    url: "https://cmlink.chenxh.dpdns.org/sub?token=77b9e524be1a2f254b93de1bebe7b8f0"
     type: http
     interval: 86400
     path: ./proxy_provider/airport2.yaml
@@ -28,9 +28,9 @@ proxy-providers:
       interval: 300
     proxy: 🟢 Direct
     
-  airport3:
+  牧牛云:
 
-    url: "机场订阅连接3"
+    url: "http://10.10.10.222:3008/9GfT7vK2pXd4LqR6sZj8BwNcY1Ha0QeF/download/%E7%89%A7%E7%89%9B%E4%BA%91"
     type: http
     interval: 86400
     path: ./proxy_provider/airport3.yaml
@@ -40,9 +40,9 @@ proxy-providers:
       interval: 300
     proxy: 🟢 Direct
 
-  airport4:
+  魄力云:
 
-    url: "机场订阅连接4"
+    url: "http://10.10.10.222:3008/9GfT7vK2pXd4LqR6sZj8BwNcY1Ha0QeF/download/%E9%AD%84%E5%8A%9B%E4%BA%91"
     type: http
     interval: 86400
     path: ./proxy_provider/airport4.yaml
@@ -206,8 +206,6 @@ default: &default
   proxies:
     - 🧭 Select
     - 📡 Auto
-    - 🟢 Direct
-    - 🔴 Reject
     - 🇭🇰 HK
     - 🇹🇼 TW
     - 🇯🇵 JP
@@ -215,6 +213,16 @@ default: &default
     - 🇸🇬 SG
     - 🇺🇸 US
     - 🌏 Other
+
+direct: &direct
+  type: select
+  proxies:
+    - 🟢 Direct
+
+reject: &reject
+  type: select
+  proxies:
+    - 🔴 Reject
 
 proxy-groups:
 
@@ -231,8 +239,8 @@ proxy-groups:
   - {name: 🪟 Microsoft, <<: *default}
   - {name: 🍎 Apple, <<: *default}
   - {name: 📡 Check, <<: *default}
-  - {name: 🚫 Block, <<: *default}
-  - {name: 🏠 Inside, <<: *default}
+  - {name: 🚫 Block, <<: *reject}
+  - {name: 🏠 Inside, <<: *direct}
   - {name: 🌍 Outside, <<: *default}
   - {name: ❓ Unknown, <<: *default}
   
