@@ -242,7 +242,7 @@ proxy-groups:
   - {name: 🚫 Block, <<: *reject}
   - {name: 🏠 Inside, <<: *direct}
   - {name: 🌍 Outside, <<: *default}
-  - {name: ❓ Unknown, <<: *default}
+  - {name: 🧐  Unknown, <<: *default}
   
   # 地区分流组
   - name: 🧭 Select
@@ -365,7 +365,7 @@ rules:
   - RULE-SET,China-GeoSite,🏠 Inside
   - RULE-SET,China-GeoIP,🏠 Inside,no-resolve
   - RULE-SET,Private-GeoSite,🏠 Inside
-  - MATCH,❓ Unknown
+  - MATCH,🧐  Unknown
   
 ########################################
 #              规则合集
