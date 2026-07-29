@@ -309,6 +309,8 @@ proxy-groups:
 ########################################
 
 rules:
+  - RULE-SET,PrivateProxy-Class,🌍 Outside
+  - RULE-SET,PrivateDirect-Class,🏠 Inside
   - RULE-SET,ChatGPT-GeoSite,🤖 AI
   - RULE-SET,Claude-GeoSite,🤖 AI
   - RULE-SET,Meta-Class,🤖 AI
@@ -362,6 +364,8 @@ rule-anchor:
   class: &class {type: http, interval: 86400, behavior: classical, format: text}
 
 rule-providers:
+  PrivateProxy-Class: {<<: *class, url: "https://raw.githubusercontent.com/anonymouswhac/PFile/refs/heads/main/OpenClash/Rule/privateproxy.list"}
+  PrivateDirect-Class: {<<: *class, url: "https://raw.githubusercontent.com/anonymouswhac/PFile/refs/heads/main/OpenClash/Rule/privatedirect.list"}
   ChatGPT-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/openai.mrs"}
   Claude-GeoSite: {<<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/anthropic.mrs"}
   Meta-Class: {<<: *class, url: "https://raw.githubusercontent.com/anonymouswhac/PFile/refs/heads/main/OpenClash/Rule/meta.list"}
